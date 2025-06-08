@@ -1,6 +1,6 @@
 local userInputService = game:GetService("UserInputService")
 local attach = true
-local mode = 2 -- Default mode
+local mode = 0 -- Mode awal dimulai dari 0
 local RB = Color3.new(1, 0, 0)
 
 -- Fungsi untuk mengaktifkan mode
@@ -37,16 +37,16 @@ end)
 
 Normal.Activated:Connect(function()
     mode = 2 -- Mode diaktifkan
-    print("Mode 2 diaktifkan!")
+    print("Mode 2 diaktifkan melalui tombol 2!")
 end)
 
 -- Menangkap input tombol E dan R
 userInputService.InputBegan:Connect(function(input, gameProcessed)
     if not gameProcessed then
-        if input.KeyCode == Enum.KeyCode.E then
+        if input.KeyCode == Enum.KeyCode.E and mode ~= 2 then
             Normal:Activate() -- Menekan tombol "2"
             print("Tombol 2 ditekan melalui tombol E!")
-        elseif input.KeyCode == Enum.KeyCode.R then
+        elseif input.KeyCode == Enum.KeyCode.R and mode ~= 0 then
             Off:Activate() -- Menekan tombol "Off"
             mode = 0 -- Pastikan mode direset saat tombol R ditekan
             print("Tombol Off ditekan melalui tombol R, mode dinonaktifkan!")
@@ -76,4 +76,5 @@ while true do
         attach = true
     end
 end
+
 

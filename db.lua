@@ -35,7 +35,7 @@ userInputService.InputBegan:Connect(function(input, gameProcessed)
         if input.KeyCode == Enum.KeyCode.E then
             Normal:Activate() -- Menekan tombol "2"
             print("Tombol 2 ditekan melalui tombol E!")
-        elseif input.KeyCode == Enum.KeyCode.R then
+        elseif input.KeyCode == Enum.KeyCode.X then
             Off:Activate() -- Menekan tombol "Off"
             print("Tombol Off ditekan melalui tombol R!")
         end

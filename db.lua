@@ -43,13 +43,14 @@ end)
 -- Menangkap input tombol E dan R
 userInputService.InputBegan:Connect(function(input, gameProcessed)
     if not gameProcessed then
-        if input.KeyCode == Enum.KeyCode.E and mode ~= 2 then
+        if input.KeyCode == Enum.KeyCode.E then
+            mode = 2
             Normal:Activate() -- Menekan tombol "2"
-            print("Tombol 2 ditekan melalui tombol E!")
-        elseif input.KeyCode == Enum.KeyCode.R and mode ~= 0 then
+            print("Mode 2 diaktifkan melalui tombol E!")
+        elseif input.KeyCode == Enum.KeyCode.R then
+            mode = 0
             Off:Activate() -- Menekan tombol "Off"
-            mode = 0 -- Pastikan mode direset saat tombol R ditekan
-            print("Tombol Off ditekan melalui tombol R, mode dinonaktifkan!")
+            print("Mode dinonaktifkan melalui tombol R!")
         end
     end
 end)
@@ -70,11 +71,10 @@ while true do
 
         if mode == 2 and pos < 50 then
             CLC()
+            print("Mode 2 aktif dalam loop!")
         end
 
     elseif not (ball.Highlight.FillColor == RB) then
         attach = true
     end
 end
-
-

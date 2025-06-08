@@ -1,6 +1,6 @@
 local userInputService = game:GetService("UserInputService")
 local attach = true
-local mode = 2
+local mode = 2 -- Default mode
 local RB = Color3.new(1, 0, 0)
 
 -- Fungsi untuk mengaktifkan mode
@@ -29,35 +29,45 @@ Normal.Size = UDim2.new(0, 50, 0, 50)
 Normal.Position = UDim2.new(1, -250, 0, 50)
 Normal.Text = "2"
 
--- Menangkap input tombol E dan R untuk mengklik tombol yang sesuai
+-- Event untuk tombol GUI
+Off.Activated:Connect(function()
+    mode = 0 -- Mode dimatikan
+    print("Mode dinonaktifkan melalui tombol Off!")
+end)
+
+Normal.Activated:Connect(function()
+    mode = 2 -- Mode diaktifkan
+    print("Mode 2 diaktifkan!")
+end)
+
+-- Menangkap input tombol E dan R
 userInputService.InputBegan:Connect(function(input, gameProcessed)
     if not gameProcessed then
         if input.KeyCode == Enum.KeyCode.E then
             Normal:Activate() -- Menekan tombol "2"
             print("Tombol 2 ditekan melalui tombol E!")
-        elseif input.KeyCode == Enum.KeyCode.X then
+        elseif input.KeyCode == Enum.KeyCode.R then
             Off:Activate() -- Menekan tombol "Off"
-            print("Tombol Off ditekan melalui tombol R!")
+            mode = 0 -- Pastikan mode direset saat tombol R ditekan
+            print("Tombol Off ditekan melalui tombol R, mode dinonaktifkan!")
         end
     end
 end)
 
 -- Loop utama untuk eksekusi mode
 while true do
-    wait(0.05) 
-    local ball = game.Workspace:WaitForChild("Part") 
+    wait(0.05)
+    local ball = game.Workspace:WaitForChild("Part")
 
     if ball.Highlight.FillColor == RB then
         local playerPos = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame
         local pos = 0
 
-        -- Menghitung jarak dari bola ke pemain
         for _, axis in ipairs({"X", "Y", "Z"}) do
             local diff = math.abs(ball.CFrame[axis] - playerPos[axis])
             pos = pos + diff
         end
 
-        -- Logika mode
         if mode == 2 and pos < 50 then
             CLC()
         end
@@ -66,3 +76,4 @@ while true do
         attach = true
     end
 end
+
